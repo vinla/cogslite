@@ -1,0 +1,72 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+.game-panel{
+    border: solid 1px black;
+    padding: 3px;
+    width: 33%;
+    max-width: 400px;
+    min-width: 200px;
+    overflow: auto;
+}
+
+.game-image {
+    display: inline-block;    
+    margin: 2px;
+}
+
+.game-info{
+    margin: 2px;      
+    width: 70%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.game-title{
+    padding: 2px;    
+    background-color: lightslategray;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.game-list-item {
+    display: block;
+    margin: 20px 5px 20px 5px;
+    border: solid 1px black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    color: cadetblue;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}

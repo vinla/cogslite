@@ -1,0 +1,56 @@
+﻿using System;
+using System.IO;
+using SixLabors.Primitives;
+using SixLabors.ImageSharp;
+using System.Collections.Generic;
+
+namespace CogsLite3
+{
+    public static class ImageSlicer
+    {
+		public static IEnumerable<byte[]> Slice(int rows, int columns, Stream imageData)
+		{
+			var image = Image.Load(imageData);
+			if (image.Width % columns > 0 || image.Height % rows > 0)
+				throw new InvalidOperationException("Cannot split image into equal parts based on rows and columns supplied");
+
+			var splitWidth = image.Width / columns;
+			var splitHeight = image.Height / rows;
+
+			for(int r = 0; r < rows; r++)
+			{
+				for(int c = 0; c < columns; c++)
+				{
+					var splitImage = image.Clone(x => x.Crop(new Rectangle(c * splitWidth, r * splitHeight, splitWidth, splitHeight)));					
+
+					using (var memoryStream = new MemoryStream())
+					{
+						splitImage.SaveAsPng(memoryStream);
+						yield return memoryStream.GetBuffer();
+					}
+				}
+			}
+		}
+
+		public static void Composite()
+		{
+			var finalImage = new Image<Rgba32>(300, 249);
+
+			var files = Directory.GetFiles(@"c:\utilities\split\");
+			var counter = 0;
+
+			foreach(var file in files)
+			{
+				var cardImage = Image.Load(file);
+				var row = counter / 5;
+				var column = counter % 5;
+
+				finalImage.Mutate(x => x.DrawImage(cardImage, new Size(cardImage.Width, cardImage.Height), new Point(column * cardImage.Width, row * cardImage.Height), GraphicsOptions.Default));
+				counter++;
+			}
+
+			using (var fileStream = File.OpenWrite(@"c:\utilities\split\comp.png"))
+				finalImage.SaveAsPng(fileStream);
+		}
+    }
+}

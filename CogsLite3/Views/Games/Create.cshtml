@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form method="post" enctype="multipart/form-data" asp-controller="Games" asp-action="Create">
+    <h2>Create a new card game</h2>
+    <p>Create a new card game entry, once created you can start adding cards and creating decks.</p>
+    <div>Name</div>
+    <div><input type="text" name="name" /></div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Upload a cover image for the game, this will be displayed in a card 6 x 4 aspect ratio. The card back for the game is a good choice.</p>
+            <input type="file" name="image" />
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Create" />
+    </div>
+</form>
