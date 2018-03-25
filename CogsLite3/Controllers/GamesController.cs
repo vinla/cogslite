@@ -9,12 +9,14 @@ namespace CogsLite3.Controllers
     public class GamesController : Controller
     {
 		private readonly IGameStore _gameStore;
+		private readonly ICardStore _cardStore;
 		private readonly IImageStore _imageStore;
 
-		public GamesController(IGameStore gameStore, IImageStore imageStore)
+		public GamesController(IGameStore gameStore, ICardStore cardStore, IImageStore imageStore)
 		{
 			_gameStore = gameStore ?? throw new ArgumentNullException(nameof(gameStore));
 			_imageStore = imageStore ?? throw new ArgumentNullException(nameof(imageStore));
+			_cardStore = cardStore ?? throw new ArgumentNullException(nameof(cardStore));
 		}
 
         public IActionResult Index()
@@ -22,6 +24,15 @@ namespace CogsLite3.Controllers
 			var viewModel = new GamesViewModel(_gameStore.Get(String.Empty, 0, 15));
 			return View(viewModel);
         }
+
+		public IActionResult Cards(Guid gameId)
+		{
+			var game = _gameStore.Get(gameId);
+			var viewModel = new CardsViewModel(_cardStore.Get(gameId, String.Empty, 0, 50));
+			ViewData["GameId"] = game.Id;
+			ViewData["GameName"] = game.Name;
+			return View(viewModel);
+		}
 
 		public IActionResult Create()
 		{

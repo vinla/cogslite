@@ -25,6 +25,14 @@ namespace CogsLite.MongoStore
 			gamesCollection.InsertOne(game);
 		}
 
+		public Game Get(Guid gameId)
+		{
+			var database = GetDatabase();
+			var gamesCollection = database.GetCollection<Game>("Games");
+			var filter = Builders<Game>.Filter.Where(g => g.Id == gameId);
+			return gamesCollection.Find(filter).SingleOrDefault();
+		}
+
 		public IEnumerable<Game> Get(string nameFilter, int pageNumber, int itemsPerPage)
 		{
 			var database = GetDatabase();
@@ -34,5 +42,16 @@ namespace CogsLite.MongoStore
 
 			return gamesCollection.Find(filter).ToList().Skip(pageNumber * itemsPerPage).Take(itemsPerPage).ToList();
 		}		
+
+		public void UpdateOne(Guid id, Action<Game> updateAction)
+		{
+			var database = GetDatabase();
+			var gamesCollection = database.GetCollection<Game>("Games");
+			var filter = Builders<Game>.Filter.Where(g => g.Id == id);
+			
+			var game = gamesCollection.Find(filter).SingleOrDefault();
+			updateAction(game);
+			gamesCollection.ReplaceOne(filter, game);
+		}
 	}
 }

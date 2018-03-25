@@ -58,6 +58,11 @@
     color: cadetblue;
 }
 
+.card-item {
+    display: inline-block;
+    width: 12%;
+}
+
 /* QR code generator */
 #qrCode {
     margin: 15px;

@@ -8,28 +8,32 @@ namespace CogsLite3
 {
     public static class ImageSlicer
     {
-		public static IEnumerable<byte[]> Slice(int rows, int columns, Stream imageData)
+		public static IEnumerable<byte[]> Slice(int cardsPerRow, int cardCount, Stream imageData)
 		{
-			var image = Image.Load(imageData);
-			if (image.Width % columns > 0 || image.Height % rows > 0)
-				throw new InvalidOperationException("Cannot split image into equal parts based on rows and columns supplied");
+			int rows = (cardCount / cardsPerRow);
+			if (cardCount % cardsPerRow > 0)
+				rows++;
 
-			var splitWidth = image.Width / columns;
+			var image = Image.Load(imageData);
+			//if (image.Width % cardsPerRow > 0 || image.Height % rows > 0)
+			//	throw new InvalidOperationException("Cannot split image into equal parts based on rows and columns supplied");
+
+			var splitWidth = image.Width / cardsPerRow;
 			var splitHeight = image.Height / rows;
 
-			for(int r = 0; r < rows; r++)
+			for(int i = 0; i < cardCount; i++)
 			{
-				for(int c = 0; c < columns; c++)
-				{
-					var splitImage = image.Clone(x => x.Crop(new Rectangle(c * splitWidth, r * splitHeight, splitWidth, splitHeight)));					
+				int row = i / cardsPerRow;
+				int column = i % cardsPerRow;
 
-					using (var memoryStream = new MemoryStream())
-					{
-						splitImage.SaveAsPng(memoryStream);
-						yield return memoryStream.GetBuffer();
-					}
+				var splitImage = image.Clone(x => x.Crop(new Rectangle(column * splitWidth, row * splitHeight, splitWidth, splitHeight)));
+
+				using (var memoryStream = new MemoryStream())
+				{
+					splitImage.SaveAsPng(memoryStream);
+					yield return memoryStream.GetBuffer();
 				}
-			}
+			}			
 		}
 
 		public static void Composite()

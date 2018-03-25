@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Card Details</h2>
+<div style="display: inline-block">
+    <img src="@Url.Action("Get", "Images", new { id = Model.Id })"/>
+</div>
+<div style="display: inline-block">
+    <form method="post" asp-action="UpdateDetails" asp-controller="Cards">
+        <input type="hidden" name="gameId" value="@Model.GameId"/>
+        <input type="hidden" name="cardId" value="@Model.Id"/>
+        <div><input type="text" name="name" value="@Model.Name"/></div>
+        <div><input type="submit" class="btn btn-primary" value="Update" /></div>
+    </form>
+</div>
+

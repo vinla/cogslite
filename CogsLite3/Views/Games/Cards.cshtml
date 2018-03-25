@@ -1,0 +1,19 @@
+﻿@model CardsViewModel
+@{
+    ViewData["Title"] = "Cards";
+}
+
+<h2>@ViewData["GameName"] - Cards</h2>
+<a href="@Url.Action("Upload", "Cards", new { gameId = ViewData["GameId"] })" class="btn btn-default">Upload cards</a>
+<hr/>
+<ul>
+    @foreach (var card in Model.Cards)
+    {
+        <li class="card-item">
+            <a href="@Url.Action("Details", "Cards", new { cardId = card.Id })">
+                <img src="@Url.Action("Get", "Images", new { id = card.Id })" height="140" />
+                <div>&nbsp;@card.Name</div>
+            </a>
+        </li>
+    }
+</ul>

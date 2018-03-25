@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CogsLite.Core;
 
 namespace CogsLite3.Models
 {

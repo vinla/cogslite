@@ -10,7 +10,7 @@
     {
         <li class="game-list-item">
             <img src="@Url.Action("Get", "Images", new { id = game.Id })" height="70"/>
-            @game.Name
+            <a href="@Url.Action("Cards", "Games", new { gameId = game.Id })">@game.Name</a> 
         </li>
     }
 </ul>

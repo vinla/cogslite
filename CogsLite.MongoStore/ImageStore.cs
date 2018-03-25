@@ -33,5 +33,17 @@ namespace CogsLite.MongoStore
 
 			fileStorage.UploadFromStream(id.ToString(), imageData);
 		}
+
+		public void Store(Guid id, byte[] imageData)
+		{
+			var database = GetDatabase();
+
+			var fileStorage = new GridFSBucket(database, new GridFSBucketOptions
+			{
+				BucketName = "images"
+			});
+
+			fileStorage.UploadFromBytes(id.ToString(), imageData);
+		}
 	}
 }

@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<h2>@ViewData["GameName"] &gt; Upload cards</h2>
+<form method="post" enctype="multipart/form-data" asp-controller="Cards" asp-action="Upload">
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Cards per row:</p>
+            <input type="number" name="cardsPerRow" />
+        </div>
+    </div>    
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Number of cards:</p>
+            <input type="number" name="cardCount" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>Upload a card sheet</p>
+            <input type="file" name="cardSheet"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="hidden" name="gameId" value="@ViewData["GameId"]"/>
+            <input type="submit" value="Upload" />
+        </div>
+    </div>
+</form>
