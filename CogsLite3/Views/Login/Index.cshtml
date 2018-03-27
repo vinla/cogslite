@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Login</h2>
+<br/>
+<form method="post" asp-controller="Login" asp-action="Login">
+    <div class="container">
+        <div style="color: darkred">@ViewData["Message"]</div>
+    <label for="email"><b>Email</b></label>
+    <input type="text" name="email" required>
+    <br />
+    <label for="password"><b>Password</b></label>
+    <input type="password" name="password" required>
+    <br />
+    <button type="submit">Login</button>
+    <br />
+    <a class="signup-prompt" href="@Url.Action("SignUp", "Login")">Not got a CogsLite account? Sign up</a>
+    </div>
+</form>

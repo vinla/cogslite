@@ -13,6 +13,7 @@ namespace CogsLite.MongoStore
 			services.AddTransient<IGameStore, GameStore>();
 			services.AddTransient<IImageStore, ImageStore>();
 			services.AddTransient<ICardStore, CardStore>();
+            services.AddTransient<IUserStore, UserStore>();
 		}
     }
 }

@@ -14,7 +14,12 @@ namespace CogsLite3.Controllers
         public IActionResult Index()
         {
 			return View();
-        }		
+        }
+        
+        public IActionResult About()
+        {
+            return View();
+        }
 
 		public IActionResult Error()
         {
